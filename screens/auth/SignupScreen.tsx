@@ -9,6 +9,7 @@ import {
     Image,
     StyleSheet,
     ActivityIndicator,
+    KeyboardAvoidingView,
 } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { s, vs, ms } from '../../lib/scaling';
@@ -243,10 +244,13 @@ export default function SignupScreen({
     }
 
 
-    // ── Main form ──
     return (
         <LinearGradient colors={['#FFF4F8', '#FFEBEB']} style={styles.root}>
-            <ScrollView
+            <KeyboardAvoidingView 
+                behavior={Platform.OS === "ios" ? "padding" : "height"} 
+                style={{ flex: 1 }}
+            >
+                <ScrollView
                 style={{ flex: 1 }}
                 contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + vs(20) }]}
                 keyboardShouldPersistTaps="handled"
@@ -433,16 +437,17 @@ export default function SignupScreen({
                         <Text style={styles.switchLinkText}>Already have an account? <Text style={{ color: '#FF1493' }}>Log In</Text></Text>
                     </TouchableOpacity>
                 </ScrollView>
+            </KeyboardAvoidingView>
 
-                <AuthStatusModal
-                    visible={statusVisible}
-                    type={statusType}
-                    title={statusTitle}
-                    message={statusMessage}
-                    onClose={() => setStatusVisible(false)}
-                />
-            </LinearGradient>
-        );
+            <AuthStatusModal
+                visible={statusVisible}
+                type={statusType}
+                title={statusTitle}
+                message={statusMessage}
+                onClose={() => setStatusVisible(false)}
+            />
+        </LinearGradient>
+    );
 }
 
 const styles = StyleSheet.create({

@@ -9,6 +9,7 @@ import {
     Image,
     StyleSheet,
     ActivityIndicator,
+    KeyboardAvoidingView,
 } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { s, vs, ms } from '../../lib/scaling';
@@ -120,6 +121,10 @@ export default function LoginScreen({
     if (viewMode === "forgot_email") {
         return (
             <LinearGradient colors={["#FF1493", "#FF69B4", "#FFF0F5"]} style={styles.root}>
+                <KeyboardAvoidingView 
+                    behavior={Platform.OS === "ios" ? "padding" : "height"} 
+                    style={{ flex: 1 }}
+                >
                 <ScrollView contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + vs(20) }]} bounces={false} keyboardShouldPersistTaps="handled">
                     <View style={{ alignItems: "center", paddingHorizontal: ms(24), paddingVertical: vs(40) }}>
                         <Animated.View entering={FadeInDown.duration(800)} style={styles.premiumIconCircle}>
@@ -164,7 +169,8 @@ export default function LoginScreen({
                         </Animated.View>
                     </View>
                 </ScrollView>
-            </LinearGradient>
+            </KeyboardAvoidingView>
+        </LinearGradient>
         );
     }
 
@@ -172,6 +178,10 @@ export default function LoginScreen({
     if (viewMode === "forgot_otp") {
         return (
             <LinearGradient colors={["#FF1493", "#FF69B4", "#FFF0F5"]} style={styles.root}>
+                <KeyboardAvoidingView 
+                    behavior={Platform.OS === "ios" ? "padding" : "height"} 
+                    style={{ flex: 1 }}
+                >
                 <ScrollView contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top + vs(20) }]} bounces={false} keyboardShouldPersistTaps="handled">
                     <View style={{ alignItems: "center", paddingHorizontal: ms(24), paddingVertical: vs(40) }}>
                         <Animated.View entering={FadeInDown.duration(800)} style={styles.premiumIconCircle}>
@@ -245,12 +255,16 @@ export default function LoginScreen({
                         </Animated.View>
                     </View>
                 </ScrollView>
-            </LinearGradient>
+            </KeyboardAvoidingView>
+        </LinearGradient>
         );
     }
 
     return (
-        <View style={[styles.root, { paddingTop: insets.top }]}>
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === "ios" ? "padding" : "height"} 
+            style={[styles.root, { paddingTop: insets.top }]}
+        >
             <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
                 <View style={[styles.mainBox, { paddingTop: vs(20) }]}>
                     {/* Logo */}
@@ -322,7 +336,7 @@ export default function LoginScreen({
                 message={statusMessage}
                 onClose={() => setStatusVisible(false)}
             />
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 

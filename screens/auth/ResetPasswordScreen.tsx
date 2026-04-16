@@ -8,6 +8,7 @@ import {
     ScrollView,
     StyleSheet,
     ActivityIndicator,
+    KeyboardAvoidingView,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { s, vs, ms } from "../../lib/scaling";
@@ -86,7 +87,11 @@ export default function ResetPasswordScreen({ onPasswordUpdated }: ResetPassword
     return (
         <View style={{ flex: 1, paddingTop: insets.top }}>
             <LinearGradient colors={["#FF1493", "#FF69B4", "#FFF0F5"]} style={styles.root}>
-                <ScrollView contentContainerStyle={styles.scrollContent} bounces={false} keyboardShouldPersistTaps="handled">
+                <KeyboardAvoidingView 
+                    behavior={Platform.OS === "ios" ? "padding" : "height"} 
+                    style={{ flex: 1 }}
+                >
+                    <ScrollView contentContainerStyle={styles.scrollContent} bounces={false} keyboardShouldPersistTaps="handled">
                     <View style={{ alignItems: "center", paddingHorizontal: ms(24), paddingVertical: vs(40) }}>
                         
                         <Animated.View entering={FadeInDown.duration(800)} style={styles.premiumIconCircle}>
@@ -158,7 +163,8 @@ export default function ResetPasswordScreen({ onPasswordUpdated }: ResetPassword
                         </Animated.View>
                     </View>
                 </ScrollView>
-            </LinearGradient>
+            </KeyboardAvoidingView>
+        </LinearGradient>
 
             {/* Success Modal */}
             <AuthStatusModal 
